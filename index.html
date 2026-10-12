@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Verbo — Novedades, funciones y ventajas</title>
+<meta name="description" content="El Verbo: lectura y estudio de las Escrituras en el móvil y el ordenador. Novedades, funciones, ventajas y cómo empezar. Gratis, sin publicidad y con panel para tu comunidad.">
+<meta name="theme-color" content="#0C0B0E">
+<meta property="og:title" content="El Verbo — lectura y estudio de las Escrituras">
+<meta property="og:description" content="66 libros, dos versiones en paralelo, notas enlazadas, planes de lectura y panel para tu comunidad.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0B0E;
+    --ink-2:#131218;
+    --ink-3:#1A1920;
+    --line:rgba(255,255,255,.09);
+    --line-strong:rgba(201,163,73,.35);
+    --gold:#C9A349;
+    --gold-soft:rgba(201,163,73,.14);
+    --indigo:#7C6BE0;
+    --paper:#EFE9DD;
+    --muted:#9A938A;
+    --muted-2:#6E6862;
+    --serif:"Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+    --sans:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--ink);color:var(--paper);
+    font-family:var(--sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* Atmósfera: grano + halo dorado */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+  .halo{position:fixed;inset:-30% -10% auto -10%;height:80vh;pointer-events:none;z-index:0;
+    background:radial-gradient(60% 55% at 22% 18%, rgba(201,163,73,.16), transparent 70%),
+               radial-gradient(45% 45% at 78% 8%, rgba(124,107,224,.13), transparent 72%)}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px;position:relative;z-index:2}
+
+  /* ── Barra superior ─────────────────────────────────────────────── */
+  header.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom, rgba(12,11,14,.92), rgba(12,11,14,.62));
+    border-bottom:1px solid var(--line)}
+  .top .row{display:flex;align-items:center;justify-content:space-between;gap:20px;height:66px}
+  .brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+  .brand b{font-family:var(--serif);font-weight:600;font-size:21px;letter-spacing:-.01em}
+  .brand span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+  nav.menu{display:flex;gap:26px;font-size:13.5px;color:var(--muted)}
+  nav.menu a{text-decoration:none;padding:4px 0;border-bottom:1px solid transparent;transition:.25s}
+  nav.menu a:hover{color:var(--paper);border-color:var(--line-strong)}
+  .btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-size:13.5px;font-weight:600;
+    padding:11px 18px;border-radius:999px;border:1px solid var(--line-strong);color:var(--paper);
+    background:linear-gradient(180deg, rgba(201,163,73,.16), rgba(201,163,73,.05));transition:.25s}
+  .btn:hover{background:linear-gradient(180deg, rgba(201,163,73,.28), rgba(201,163,73,.10));transform:translateY(-1px)}
+  .btn.ghost{border-color:var(--line);background:none;color:var(--muted)}
+  .btn.ghost:hover{color:var(--paper);border-color:var(--line-strong)}
+  @media (max-width:880px){ nav.menu{display:none} }
+
+  /* ── Portada ────────────────────────────────────────────────────── */
+  .hero{padding:96px 0 70px;position:relative}
+  .eyebrow{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin:0 0 22px;
+    display:flex;align-items:center;gap:14px}
+  .eyebrow::after{content:"";height:1px;flex:0 0 90px;background:linear-gradient(90deg,var(--gold),transparent)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(56px,11vw,132px);line-height:.92;
+    letter-spacing:-.035em;margin:0;font-variation-settings:"SOFT" 0,"WONK" 1}
+  h1 em{font-style:italic;color:var(--gold);font-weight:400}
+  .lede{font-family:var(--serif);font-size:clamp(19px,2.3vw,26px);line-height:1.5;color:#D8D2C6;
+    max-width:44ch;margin:28px 0 0;font-weight:300;font-variation-settings:"SOFT" 40}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line);margin-top:64px}
+  .fact{background:var(--ink);padding:20px 22px}
+  .fact b{display:block;font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .fact span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2)}
+  .hero-note{margin-top:18px;font-size:13px;color:var(--muted-2)}
+
+  /* ── Secciones ──────────────────────────────────────────────────── */
+  section{padding:76px 0;border-top:1px solid var(--line)}
+  .head{display:grid;grid-template-columns:120px 1fr;gap:26px;align-items:start;margin-bottom:44px}
+  .num{font-family:var(--serif);font-size:52px;font-weight:300;color:var(--gold);opacity:.5;line-height:1;
+    font-variation-settings:"SOFT" 60}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.4vw,50px);line-height:1.05;
+    letter-spacing:-.025em;margin:0}
+  h2 + p.sub{color:var(--muted);margin:14px 0 0;max-width:62ch;font-size:16.5px}
+  @media (max-width:760px){ .head{grid-template-columns:1fr;gap:10px} .num{font-size:38px} }
+
+  /* Novedades */
+  .news{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .item{background:var(--ink);padding:26px 28px;display:grid;grid-template-columns:54px 1fr;gap:20px;
+    transition:background .3s}
+  .item:hover{background:var(--ink-2)}
+  .item .tag{font-family:var(--serif);font-size:26px;color:var(--gold);opacity:.75;line-height:1;
+    border-right:1px solid var(--line);padding-right:20px}
+  .item h3{margin:0 0 6px;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .item p{margin:0;color:var(--muted);font-size:15.5px}
+  .pill{display:inline-block;margin-top:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--line-strong);border-radius:999px;padding:4px 11px;background:var(--gold-soft)}
+  @media (max-width:600px){ .item{grid-template-columns:1fr;gap:10px} .item .tag{border:0;padding:0} }
+
+  /* Funciones */
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line)}
+  .card{background:var(--ink);padding:30px 28px;position:relative;overflow:hidden;transition:.35s}
+  .card::after{content:"";position:absolute;inset:auto auto 0 0;height:1px;width:0;background:var(--gold);
+    transition:width .5s ease}
+  .card:hover::after{width:100%}
+  .card:hover{background:var(--ink-2)}
+  .glyph{font-family:var(--serif);font-size:22px;color:var(--gold);display:block;margin-bottom:16px}
+  .card h3{margin:0 0 8px;font-family:var(--serif);font-size:20px;font-weight:600}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+
+  /* Pasos */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:34px}
+  .step{position:relative;padding-top:26px;border-top:1px solid var(--line-strong)}
+  .step b{font-family:var(--serif);font-size:15px;letter-spacing:.02em;color:var(--gold);display:block;margin-bottom:12px}
+  .step h3{margin:0 0 10px;font-family:var(--serif);font-size:23px;font-weight:600}
+  .step p{margin:0 0 10px;color:var(--muted);font-size:15.5px}
+  .step code{font-family:var(--sans);font-size:13.5px;background:var(--ink-3);border:1px solid var(--line);
+    border-radius:7px;padding:2px 7px;color:#D8D2C6}
+
+  /* Ventajas */
+  .adv{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px 40px}
+  .adv div{padding-left:22px;position:relative}
+  .adv div::before{content:"—";position:absolute;left:0;top:0;color:var(--gold)}
+  .adv b{font-family:var(--serif);font-weight:600;font-size:18px;display:block;margin-bottom:4px}
+  .adv span{color:var(--muted);font-size:15px}
+
+  /* FAQ */
+  details{border-top:1px solid var(--line);padding:20px 0}
+  details summary{cursor:pointer;font-family:var(--serif);font-size:20px;font-weight:600;list-style:none;
+    display:flex;justify-content:space-between;gap:18px;align-items:center}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);margin:14px 0 0;max-width:70ch}
+
+  footer{border-top:1px solid var(--line);padding:54px 0 70px;color:var(--muted-2);font-size:14px}
+  footer .row{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-end}
+  footer .mark{font-family:var(--serif);font-size:26px;color:var(--paper);font-weight:600}
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-strong)}
+  footer a:hover{color:var(--paper)}
+
+  /* Movimiento */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1;transform:none;transition:none} }
+  a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="halo"></div>
+<div class="grain"></div>
+
+<header class="top">
+  <div class="wrap row">
+    <a class="brand" href="#top"><b>El Verbo</b><span>Novedades</span></a>
+    <nav class="menu">
+      <a href="#novedades">Novedades</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#empezar">Cómo empezar</a>
+      <a href="#comunidad">Para tu comunidad</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <a class="btn" href="https://biblia.alex74.space/">Abrir la app ↗</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ── Portada ─────────────────────────────────────────────────── -->
+  <div class="wrap hero">
+    <p class="eyebrow reveal">Actualización 2026 · versión web 22 / Android 141</p>
+    <h1 class="reveal">Lee, compara<br>y <em>estudia</em>.</h1>
+    <p class="lede reveal">Una aplicación de lectura y estudio de las Escrituras pensada para el móvil: dos versiones en paralelo, notas al pie que se enlazan entre sí, planes de lectura y todo lo que marques, siempre contigo.</p>
+    <div class="hero-cta reveal">
+      <a class="btn" href="https://biblia.alex74.space/">Abrir la aplicación</a>
+      <a class="btn ghost" href="#empezar">Instalarla en el móvil</a>
+    </div>
+    <div class="facts reveal">
+      <div class="fact"><b>66</b><span>Libros</span></div>
+      <div class="fact"><b>1.189</b><span>Capítulos</span></div>
+      <div class="fact"><b>328</b><span>Notas de estudio</span></div>
+      <div class="fact"><b>2</b><span>Versiones en paralelo</span></div>
+    </div>
+    <p class="hero-note reveal">Gratis · Sin publicidad · Sin rastreo de terceros</p>
+  </div>
+
+  <!-- ── Novedades ───────────────────────────────────────────────── -->
+  <section id="novedades">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§01</div>
+        <div>
+          <h2>Lo último que se ha añadido</h2>
+          <p class="sub">Estas son las mejoras de las últimas versiones, en el orden en que fueron llegando.</p>
+        </div>
+      </div>
+
+      <div class="news">
+        <article class="item reveal">
+          <div class="tag">1</div>
+          <div>
+            <h3>Cartelera con avisos</h3>
+            <p>Publica los cultos, reuniones y eventos de la comunidad. La app avisa en el momento en que se publica algo nuevo y recuerda los que están por empezar unas horas antes. El administrador puede delegar la cartelera en un «subcriptor» sin darle acceso al resto del panel.</p>
+            <span class="pill">Notificaciones</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">2</div>
+          <div>
+            <h3>Registro de actividad</h3>
+            <p>El panel muestra quién ha entrado, qué secciones abre, cuántas veces y cuánto tiempo permanece, con una ficha detallada por usuario y su historial de sesiones. Sirve para acompañar a la comunidad: saber quién dejó de entrar y cuándo.</p>
+            <span class="pill">Panel</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">3</div>
+          <div>
+            <h3>Acceso por niveles</h3>
+            <p>Hay dos niveles de lectura: un texto de dominio público, abierto a todos, y un texto de estudio con notas. El administrador decide con un interruptor general y, además, puede habilitar el texto de estudio persona por persona. Las cuentas nuevas entran con el texto abierto y se habilitan cuando se quiera.</p>
+            <span class="pill">Permisos</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">4</div>
+          <div>
+            <h3>Notas al pie que se enlazan</h3>
+            <p>Los números del texto abren su nota, y dentro de una nota las referencias a otras notas (§157) ahora son pulsables: se puede saltar de una a otra y volver. También se enlazan las referencias a capítulos y la lista de referencias de cada nota.</p>
+            <span class="pill">Estudio</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">5</div>
+          <div>
+            <h3>Lector más limpio</h3>
+            <p>El texto se lee seguido, sin cortes raros a mitad de frase, con la tipografía y el interlineado ajustados. Para resaltar o compartir un versículo basta un <b>doble toque</b>: se acabaron los menús que aparecían sin querer al hacer scroll. Y el texto ya no se selecciona ni se copia al mantener el dedo.</p>
+            <span class="pill">Lectura</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">6</div>
+          <div>
+            <h3>Comparar dos versiones</h3>
+            <p>Modo paralelo para leer dos versiones enfrentadas, versículo a versículo, ideal para comparar matices al estudiar un pasaje.</p>
+            <span class="pill">Comparar</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">7</div>
+          <div>
+            <h3>Búsqueda y números Strong</h3>
+            <p>Busca una palabra en toda la Biblia, ve directo a una referencia (por ejemplo <code>Juan 3:16</code>) o consulta un número Strong para ver el término original detrás de una palabra.</p>
+            <span class="pill">Búsqueda</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">8</div>
+          <div>
+            <h3>Planes de lectura</h3>
+            <p>Plan diario y lectura completa, con el progreso guardado día a día para que puedas retomarlo donde lo dejaste, también desde otro dispositivo.</p>
+            <span class="pill">Constancia</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">9</div>
+          <div>
+            <h3>Marcas, resaltados y etiquetas</h3>
+            <p>Guarda versículos, resáltalos con colores y organízalos con etiquetas propias. Todo queda ligado a tu cuenta y se sincroniza en el móvil y en el ordenador.</p>
+            <span class="pill">Personal</span>
+          </div>
+        </article>
+
+        <article class="item reveal">
+          <div class="tag">10</div>
+          <div>
+            <h3>Se instala como una app</h3>
+            <p>En Android hay aplicación propia (con el contenido dentro, funciona sin conexión) y en iPhone o Android se puede añadir a la pantalla de inicio desde el navegador.</p>
+            <span class="pill">Móvil</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Funciones ───────────────────────────────────────────────── -->
+  <section id="funciones">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§02</div>
+        <div>
+          <h2>Todo lo que hace</h2>
+          <p class="sub">Una sola aplicación para leer, estudiar y mantener a la comunidad conectada.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal"><span class="glyph">I</span><h3>Lectura cómoda</h3><p>Cuatro temas (claro, oscuro, sépia y retro), tamaño de letra ajustable y navegación de capítulo en capítulo sin fricción.</p></div>
+        <div class="card reveal"><span class="glyph">II</span><h3>Dos versiones</h3><p>Un texto de estudio con notas y un texto de dominio público, con modo paralelo para compararlos.</p></div>
+        <div class="card reveal"><span class="glyph">III</span><h3>Notas de estudio</h3><p>Más de 300 notas teológicas y de traducción, numeradas, buscables y enlazadas entre sí.</p></div>
+        <div class="card reveal"><span class="glyph">IV</span><h3>Apéndices</h3><p>Material complementario de estudio dentro de la propia app.</p></div>
+        <div class="card reveal"><span class="glyph">V</span><h3>Búsqueda global</h3><p>Por palabra, por referencia o por número Strong, con resultados que llevan al versículo exacto.</p></div>
+        <div class="card reveal"><span class="glyph">VI</span><h3>Planes de lectura</h3><p>Organiza tu lectura diaria y sigue el avance sin perder el hilo entre sesiones.</p></div>
+        <div class="card reveal"><span class="glyph">VII</span><h3>Favoritos y etiquetas</h3><p>Marcas, resaltados por color y etiquetas propias para agrupar lo que quieras recordar.</p></div>
+        <div class="card reveal"><span class="glyph">VIII</span><h3>Historial</h3><p>Vuelve a lo último que leíste con un toque, desde el inicio de la app.</p></div>
+        <div class="card reveal"><span class="glyph">IX</span><h3>Cartelera</h3><p>Avisos y eventos de la comunidad, con notificaciones y recordatorios.</p></div>
+        <div class="card reveal"><span class="glyph">X</span><h3>Panel de administración</h3><p>Usuarios, permisos, actividad y cartelera en un mismo lugar.</p></div>
+        <div class="card reveal"><span class="glyph">XI</span><h3>Sin conexión</h3><p>En Android el texto va dentro de la aplicación: se puede leer sin datos.</p></div>
+        <div class="card reveal"><span class="glyph">XII</span><h3>En español</h3><p>Interfaz pensada en español, con la tipografía y los detalles cuidados.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cómo empezar ────────────────────────────────────────────── -->
+  <section id="empezar">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§03</div>
+        <div>
+          <h2>Cómo empezar</h2>
+          <p class="sub">Tres maneras de tenerla a mano. La cuenta es la misma en todas: tus marcas y tu progreso te siguen.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <b>01 — En el navegador</b>
+          <h3>Abrir y usar</h3>
+          <p>Entra desde el móvil o el ordenador con el enlace de la comunidad, crea tu cuenta o accede con Google, y empieza a leer eligiendo libro, capítulo y versión.</p>
+          <p><code>Abrir la aplicación →</code></p>
+        </div>
+        <div class="step reveal">
+          <b>02 — iPhone / iPad</b>
+          <h3>Añadir a la pantalla de inicio</h3>
+          <p>Solo desde <b>Safari</b>: toca <b>Compartir</b> y elige <b>«Añadir a pantalla de inicio»</b>. Queda un icono que abre a pantalla completa, como una app.</p>
+          <p>Dentro de ese icono, entra con <b>correo y contraseña</b> (el acceso con Google solo funciona en Safari).</p>
+        </div>
+        <div class="step reveal">
+          <b>03 — Android</b>
+          <h3>Instalar la aplicación</h3>
+          <p>Descarga el archivo de instalación que comparte la comunidad y ábrelo en el teléfono. Al llevar el texto dentro, funciona aunque no tengas datos.</p>
+          <p>También puedes añadirla a la pantalla de inicio desde el navegador.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Comunidad ───────────────────────────────────────────────── -->
+  <section id="comunidad">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§04</div>
+        <div>
+          <h2>Para tu comunidad</h2>
+          <p class="sub">No es solo un lector: incluye las herramientas para acompañar a un grupo o a una congregación.</p>
+        </div>
+      </div>
+
+      <div class="news">
+        <article class="item reveal"><div class="tag">·</div><div><h3>Avisos que llegan</h3><p>Publica un evento y la app avisa; los que están por empezar se recuerdan unas horas antes. Se puede delegar la gestión de la cartelera en una persona de confianza.</p></div></article>
+        <article class="item reveal"><div class="tag">·</div><div><h3>Control de accesos</h3><p>Decide quién tiene el texto de estudio y quién el texto abierto, con un interruptor general y permisos individuales.</p></div></article>
+        <article class="item reveal"><div class="tag">·</div><div><h3>Actividad del grupo</h3><p>Cuántos entran, cuándo y qué leen, con estadísticas sencillas para saber cómo va la comunidad.</p></div></article>
+        <article class="item reveal"><div class="tag">·</div><div><h3>Una sola app, sin publicidad</h3><p>Sin anuncios, sin suscripciones y sin rastreo de terceros: solo la lectura y las herramientas de la comunidad.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ventajas ────────────────────────────────────────────────── -->
+  <section id="ventajas">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§05</div>
+        <div><h2>Ventajas</h2><p class="sub">Lo que la hace distinta de otras aplicaciones de lectura.</p></div>
+      </div>
+      <div class="adv">
+        <div class="reveal"><b>Todo en un sitio</b><span>Leer, comparar, buscar, marcar, estudiar y seguir el plan, sin saltar entre aplicaciones.</span></div>
+        <div class="reveal"><b>Funciona sin conexión</b><span>En Android el texto va dentro: leer en el metro o sin datos no es un problema.</span></div>
+        <div class="reveal"><b>Tus marcas te siguen</b><span>Cuenta única: lo que marcas en el móvil aparece en el ordenador.</span></div>
+        <div class="reveal"><b>Ligera y rápida</b><span>Carga al instante, también en teléfonos modestos.</span></div>
+        <div class="reveal"><b>Hecha para estudiar</b><span>Notas enlazadas, referencias cruzadas y números Strong a un toque.</span></div>
+        <div class="reveal"><b>Para tu grupo</b><span>Avisos, permisos y actividad: herramientas reales de acompañamiento.</span></div>
+        <div class="reveal"><b>Sin publicidad</b><span>Nada interrumpe la lectura. Nunca.</span></div>
+        <div class="reveal"><b>En español</b><span>Interfaz y contenidos en español, con la tipografía cuidada.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Preguntas ───────────────────────────────────────────────── -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="num">§06</div>
+        <div><h2>Preguntas frecuentes</h2></div>
+      </div>
+
+      <details class="reveal" open><summary>¿Es gratis?</summary><p>Sí. No hay anuncios, ni suscripciones, ni compras dentro de la aplicación.</p></details>
+      <details class="reveal"><summary>¿Necesito internet para leer?</summary><p>En Android no: el texto va dentro de la aplicación. En el navegador o en el icono de iPhone hace falta conexión, porque el contenido se sirve desde el servidor de la comunidad.</p></details>
+      <details class="reveal"><summary>¿Puedo comparar dos versiones del mismo pasaje?</summary><p>Sí. El modo paralelo muestra las dos versiones enfrentadas, versículo a versículo.</p></details>
+      <details class="reveal"><summary>¿Sirve para mi iglesia o mi grupo de estudio?</summary><p>Sí. El panel permite publicar avisos en la cartelera, decidir quién tiene el texto de estudio y ver la actividad del grupo.</p></details>
+      <details class="reveal"><summary>¿Qué necesito para usarla?</summary><p>Un móvil o un ordenador con un navegador moderno. Para la aplicación de Android, Android 7 o superior. En iPhone, iOS 16.4 o superior para instalarla como app.</p></details>
+      <details class="reveal"><summary>¿Qué pasa con mis datos?</summary><p>Solo se guarda lo necesario para tu cuenta y tus marcas (nombre, correo y tu actividad de lectura dentro de la app). No se comparte con terceros ni se usa para publicidad.</p></details>
+      <details class="reveal"><summary>¿Se puede usar desde varios dispositivos a la vez?</summary><p>Sí, con la misma cuenta: favoritos, resaltados y progreso se sincronizan.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <div>
+      <div class="mark">El Verbo</div>
+      <p style="margin:8px 0 0">Lectura y estudio de las Escrituras para tu comunidad.<br>Servidor local de la comunidad · versión web 22 · Android 141.</p>
+    </div>
+    <div style="text-align:right">
+      <p style="margin:0 0 6px"><a href="https://biblia.alex74.space/">Abrir la aplicación</a></p>
+      <p style="margin:0">Actualizado el 12 de octubre de 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Aparición al hacer scroll (sin librerías)
+  (function () {
+    var nodos = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      nodos.forEach(function (n) { n.classList.add('in'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) {
+          var i = Array.prototype.indexOf.call(nodos, e.target);
+          var retardo = Math.min((i % 6) * 70, 350);
+          setTimeout(function () { e.target.classList.add('in'); }, retardo);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    nodos.forEach(function (n) { obs.observe(n); });
+
+    // Los primeros elementos entran ya, sin esperar al scroll
+    document.querySelectorAll('.hero .reveal').forEach(function (n, i) {
+      setTimeout(function () { n.classList.add('in'); }, 90 * i);
+    });
+  })();
+</script>
+</body>
+</html>
